@@ -13,7 +13,11 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class TelaAdcMedico extends JFrame {
 
@@ -24,6 +28,10 @@ public class TelaAdcMedico extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 
+	static final String DB_URL = "jdbc:mysql://localhost/arcanjo";
+	static final String USER = "root";
+	static final String PASS = "root";
+	   
 	/**
 	 * Launch the application.
 	 */
@@ -123,6 +131,43 @@ public class TelaAdcMedico extends JFrame {
 		contentPane.add(textField_4);
 		
 		JButton btnNewButton = new JButton("Adicionar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nomeMedico = textField.getText();
+				String senha = textField_1.getText();
+				String cpf = textField_2.getText(); 
+				String crm = textField_3.getText();
+				String especialidade = textField_4.getText();
+				
+				
+				System.out.printf("%s, %s, %s, %s, %s", nomeMedico, senha, cpf, crm, especialidade);
+				
+				DatabaseConnection novaConexao = new DatabaseConnection();
+				Connection conn = novaConexao.myDatabaseConnection();
+				
+				MedicosDTO novoMedicoDTO = new MedicosDTO();
+				
+				novoMedicoDTO.insereMedico( conn, nomeMedico, senha, cpf, crm, especialidade  );
+				
+//				// Open a connection
+//			      try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+//			         Statement stmt = conn.createStatement();
+//			      ) {		      
+//			         // Execute a query
+//			         System.out.println("Inserindo dados em tabela");
+////			         insert into estudantes values ("9","Carla","10","5");
+//			         
+//			         System.out.println("INSERT INTO medicos VALUES ('"+nomeMedico+"', '" + senha + "', '"+ cpf +"', '" + crm + "', '" + especialidade + "')");
+//			         String sql = "INSERT INTO medicos VALUES ('"+nomeMedico+"', '" + senha + "', '"+ cpf +"', '" + crm + "', '" + especialidade + "')";
+//			         
+//			         stmt.executeUpdate(sql);  	  
+//			      } catch (SQLException ee) {
+//			         ee.printStackTrace();
+//			      } 
+			      
+			      
+			}
+		});
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton.setBorderPainted(false);

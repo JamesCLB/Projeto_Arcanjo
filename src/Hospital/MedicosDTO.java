@@ -1,19 +1,30 @@
 package Hospital;
 
+import java.sql.Connection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
 public class MedicosDTO {
 	private String nome;
 	private String senha;
 	private String cpf;
 	private String crm;
 	private String especialidade;
+
+	public MedicosDTO () {
+		
+	}
 	
-	public MedicosDTO (String medicos, String senha, String cpf, String crm, String especialidade ) {
+	public MedicosDTO (String nome, String senha, String cpf, String crm, String especialidade ) {
 		this.nome = nome ;
 		this.cpf = cpf ;
 		this.senha = senha;
 		this.crm = crm ;
 		this.especialidade = especialidade;
-		
+
 	}
 
 	public String getNome() {
@@ -56,12 +67,28 @@ public class MedicosDTO {
 		this.especialidade = especialidade;
 	}
 
+
+	public void insereMedico( Connection conn, String nomeMedico, String senha, String cpf, String crm, String especialidade  ) {
+
+		try{		      
+
+			Statement stmt = conn.createStatement();
+			System.out.println("INSERT INTO medicos VALUES ('"+ nomeMedico+"', '" + senha + "', '"+ cpf +"', '" + crm + "', '" + especialidade + "')");
+			String sql = "INSERT INTO medicos VALUES ('"+nomeMedico+"', '" + senha + "', '"+ cpf +"', '" + crm + "', '" + especialidade + "')";
+
+			stmt.executeUpdate(sql);  	  
+		} catch (SQLException ee) {
+			ee.printStackTrace();
+		}
+	}
+
+
 	@Override
 	public String toString() {
 		return "MedicosDTO [nome=" + nome + ", senha=" + senha + ", cpf=" + cpf + ", crm=" + crm + ", especialidade="
 				+ especialidade + "]";
 	}
-	
-	
-	
+
+
+
 }
