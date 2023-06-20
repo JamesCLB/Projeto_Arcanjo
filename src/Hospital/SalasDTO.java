@@ -1,6 +1,6 @@
 package Hospital;
 
-public abstract class SalasDTO {
+public class SalasDTO {
 
 	
 	private int id;

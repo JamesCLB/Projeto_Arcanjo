@@ -14,10 +14,13 @@ import javax.swing.DropMode;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class TelaAdcPaciente extends JFrame {
 
+	protected static final String NovoPaciente = null;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -57,6 +60,8 @@ public class TelaAdcPaciente extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Adicionar Paciente");
 		lblNewLabel_1.setForeground(new Color(25, 25, 112));
@@ -174,6 +179,33 @@ public class TelaAdcPaciente extends JFrame {
 		contentPane.add(lblNewLabel_1_1_1_2);
 		
 		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String NomePaciente = textField.getText();
+				String NascimentoPaciente = textField_1.getText();
+				String CpfPaciente = textField_2.getText();
+				String NumeroPaciente = textField_3.getText();
+				String ContatoPaciente = textField_4.getText();
+				String HistoricoPaciente = textField_5.getText();
+				String SexoPaciente = textField_6.getText();
+				String PesoPaciente = textField_7.getText();
+				String SintomasPaciente = textField_8.getText();
+				
+				DatabaseConnection novaConexaoo = new DatabaseConnection();
+				Connection connn = novaConexaoo.myDatabaseConnection();
+				
+				PacientesDAO novoPaciente = new PacientesDAO();
+				
+				novoPaciente.inserePaciente(connn ,NomePaciente, NascimentoPaciente
+						, CpfPaciente , NumeroPaciente , ContatoPaciente,  HistoricoPaciente,  SexoPaciente,  PesoPaciente,  SintomasPaciente );
+				try {
+					connn.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnNewButton.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
 		btnNewButton.setIcon(new ImageIcon("C:\\Users\\james.xavier\\Desktop\\Projeto_Integrador-removebg-preview (1)2.png"));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 25));

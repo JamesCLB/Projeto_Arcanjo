@@ -4,15 +4,21 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
+
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class TelaPacientes extends JFrame {
@@ -48,6 +54,8 @@ public class TelaPacientes extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		setLocationRelativeTo(null);
+		
 		JLabel lblPacientes = new JLabel("Pacientes");
 		lblPacientes.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPacientes.setForeground(new Color(25, 25, 112));
@@ -61,15 +69,43 @@ public class TelaPacientes extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.addActionListener(new ActionListener() {
+		JTextArea areaInfo = new JTextArea();
+		areaInfo.setBorder(UIManager.getBorder("Tree.editorBorder"));
+		areaInfo.setLocation(new Point(130, 215));
+		areaInfo.setForeground(new Color(255, 255, 255));
+		areaInfo.setBackground(new Color(25, 25, 112));
+		areaInfo.setFont(new Font("Microsoft JhengHei", Font.BOLD, 25));
+		areaInfo.setBounds(130, 215, 976, 425);
+		contentPane.add(areaInfo);
+		areaInfo.setEditable(false);
+		
+		JButton btnPesquisa = new JButton("");
+		btnPesquisa.setBackground(new Color(255, 255, 255));
+		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\joao.danielski\\Downloads\\MicrosoftTeams-image (3).png"));
-		btnNewButton.setBounds(828, 135, 46, 45);
-		contentPane.add(btnNewButton);
+		btnPesquisa.setIcon(new ImageIcon("C:\\Users\\joao.danielski\\Downloads\\MicrosoftTeams-image (3).png"));
+		btnPesquisa.setBounds(828, 135, 46, 45);
+		contentPane.add(btnPesquisa);
+		
+		btnPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DatabaseConnection novaConexao = new DatabaseConnection();
+				Connection conn = novaConexao.myDatabaseConnection();
+				
+				
+				String cpfPaciente = textField.getText();
+				PacientesDAO novoPaciente = new PacientesDAO();
+				try {
+					areaInfo.setText("");
+					novoPaciente.procuraPacienteCPF(conn, cpfPaciente, areaInfo);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		JButton btnNewButton_1 = new JButton("<-");
 		btnNewButton_1.addActionListener(new ActionListener() {

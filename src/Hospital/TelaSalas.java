@@ -51,6 +51,8 @@ public class TelaSalas extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 40));
 		getContentPane().add(lblNewLabel_1);
 		
+		setLocationRelativeTo(null);
+		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(255, 255, 255), 0));
 		panel.setBackground(new Color(25, 25, 112));

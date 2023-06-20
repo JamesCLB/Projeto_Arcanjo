@@ -67,22 +67,6 @@ public class MedicosDTO {
 		this.especialidade = especialidade;
 	}
 
-
-	public void insereMedico( Connection conn, String nomeMedico, String senha, String cpf, String crm, String especialidade  ) {
-
-		try{		      
-
-			Statement stmt = conn.createStatement();
-			System.out.println("INSERT INTO medicos VALUES ('"+ nomeMedico+"', '" + senha + "', '"+ cpf +"', '" + crm + "', '" + especialidade + "')");
-			String sql = "INSERT INTO medicos VALUES ('"+nomeMedico+"', '" + senha + "', '"+ cpf +"', '" + crm + "', '" + especialidade + "')";
-
-			stmt.executeUpdate(sql);  	  
-		} catch (SQLException ee) {
-			ee.printStackTrace();
-		}
-	}
-
-
 	@Override
 	public String toString() {
 		return "MedicosDTO [nome=" + nome + ", senha=" + senha + ", cpf=" + cpf + ", crm=" + crm + ", especialidade="

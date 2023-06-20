@@ -19,7 +19,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelaInicial extends JFrame {
-
 	private JPanel contentPane;
 
 	/**
@@ -42,6 +41,7 @@ public class TelaInicial extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaInicial() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1280, 720);
 		contentPane = new JPanel();
@@ -51,6 +51,8 @@ public class TelaInicial extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
+		
+		setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\joao.danielski\\Downloads\\health-removebg-preview.png"));

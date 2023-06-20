@@ -60,6 +60,8 @@ public class TelaAdcMedico extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		setLocationRelativeTo(null);
+		
 		JLabel lblNewLabel = new JLabel("Adicionar Médico");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(new Color(25, 25, 112));
@@ -138,16 +140,21 @@ public class TelaAdcMedico extends JFrame {
 				String cpf = textField_2.getText(); 
 				String crm = textField_3.getText();
 				String especialidade = textField_4.getText();
-				
-				
-				System.out.printf("%s, %s, %s, %s, %s", nomeMedico, senha, cpf, crm, especialidade);
-				
+							
 				DatabaseConnection novaConexao = new DatabaseConnection();
 				Connection conn = novaConexao.myDatabaseConnection();
 				
-				MedicosDTO novoMedicoDTO = new MedicosDTO();
+				MedicoDAO novoMedico = new MedicoDAO();
 				
-				novoMedicoDTO.insereMedico( conn, nomeMedico, senha, cpf, crm, especialidade  );
+				
+				novoMedico.insereMedico(conn, nomeMedico, senha, cpf, crm, especialidade  );
+				try {
+					conn.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				
 //				// Open a connection
 //			      try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
