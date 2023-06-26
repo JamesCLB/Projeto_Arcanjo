@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Choice;
 
 public class TelaAdcPaciente extends JFrame {
 
@@ -149,6 +150,15 @@ public class TelaAdcPaciente extends JFrame {
 		lblNewLabel_1_1_1_1_1_1_1_1.setBounds(72, 598, 175, 36);
 		contentPane.add(lblNewLabel_1_1_1_1_1_1_1_1);
 		
+		Choice choice = new Choice();
+		choice.setBounds(934, 463, 205, 61);
+		contentPane.add(choice);
+		choice.add("1");
+		choice.add("2");
+		choice.add("3");
+		choice.add("4");
+		choice.add("5");
+		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
 		textField_6.setBackground(new Color(255, 250, 250));
@@ -200,7 +210,7 @@ public class TelaAdcPaciente extends JFrame {
 				String SexoPaciente = textField_6.getText();
 				String PesoPaciente = textField_7.getText();
 				String SintomasPaciente = textField_8.getText();
-				String id_salas = textField_9.getText();
+				String id_salas =  choice.getSelectedItem();
 				
 				DatabaseConnection novaConexaoo = new DatabaseConnection();
 				Connection connn = novaConexaoo.myDatabaseConnection();
@@ -264,9 +274,6 @@ public class TelaAdcPaciente extends JFrame {
 		lblNewLabel.setBounds(744, 451, 169, 32);
 		contentPane.add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
-		comboBox.setBounds(934, 453, 205, 36);
-		contentPane.add(comboBox);
+		
 	}
 }

@@ -43,7 +43,7 @@ public class PacientesDAO {
 			areaInfo.append("\n");
 			areaInfo.append("CPF: " + cpf + "\n");
 			areaInfo.append("\n");
-			areaInfo.append("Data de Na0scimento : " + dataNasc + "\n");
+			areaInfo.append("Data de Nascimento : " + dataNasc + "\n");
 			areaInfo.append("\n");
 			areaInfo.append("Numero de Telefone: " + numero + "\n");
 			areaInfo.append("\n");
