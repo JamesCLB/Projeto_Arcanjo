@@ -26,7 +26,8 @@ import javax.swing.border.EmptyBorder;
 public class TelaComoFun extends JFrame {
     private JPanel contentPane;
     private Clip reproduzir;
-
+    private ImageIcon iconMutado;
+    private ImageIcon iconNaoMutado;
     /**
      * Launch the application.
      */
@@ -95,7 +96,7 @@ public class TelaComoFun extends JFrame {
         ImageIcon imgIcone = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\imgSetaa.png");
         Image img = imgIcone.getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH);
         JLabel imgSeta = new JLabel(new ImageIcon(img));
-        imgSeta.setBounds(574, 519, 69, 69);
+        imgSeta.setBounds(577, 519, 69, 69);
         contentPane.add(imgSeta);
         
         //função de acionar o botão quando clicar no icone da seta
@@ -118,14 +119,76 @@ public class TelaComoFun extends JFrame {
         		reproduzirAudio("C:\\Users\\james\\Desktop\\BlazeSemIronia\\Sons\\4ea7b727-9a62-4866-bd5a-0ac6700a03c1-byVC.wav"); //aciona a função reproduzir audio
         	}
         });
-        btnLer.setBounds(825, 11, 204, 33);
+        btnLer.setBounds(823, 24, 204, 33);
         contentPane.add(btnLer);
         //icone som
-        ImageIcon imgSomIcon = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\imgSom.png");
-        Image imgSom = imgSomIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        JLabel labelSom = new JLabel(new ImageIcon(imgSom));
-        labelSom.setBounds(1013, 11, 38, 33);
-        contentPane.add(labelSom);
+        
+        iconNaoMutado = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\imgSom.png");
+		iconMutado = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\Mutado.png");
+
+		Image imgSom = iconNaoMutado.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		ImageIcon imgSomRedimensionado = new ImageIcon(imgSom);
+		
+		iconNaoMutado = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\imgSom.png");
+		iconMutado = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\Mutado.png");
+		
+		Image imgSomNaoMutado = iconNaoMutado.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		Image imgSomMutado = iconMutado.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		
+		ImageIcon iconSomNaoMutadoRedimensionado = new ImageIcon(imgSomNaoMutado);
+		ImageIcon iconSomMutadoRedimensionado = new ImageIcon(imgSomMutado);
+		
+		JLabel labelSom = new JLabel(iconSomNaoMutadoRedimensionado);
+		labelSom.setBounds(1024, 24, 30, 33);
+		contentPane.add(labelSom);
+		
+        //mutar Burro
+        
+        labelSom.addMouseListener(new MouseAdapter() {
+            private boolean somMutado = false;
+            public void mouseClicked(MouseEvent e) {
+    		    
+            	if (somMutado) {
+		            labelSom.setIcon(iconSomNaoMutadoRedimensionado);
+		            reproduzir.start();
+		            somMutado = false;
+		        } else {
+		            labelSom.setIcon(iconSomMutadoRedimensionado);
+		            reproduzir.stop();
+		            somMutado = true;
+		        }
+            }
+            
+        });
+        
+        //botão voltar
+        JButton btnVoltar = new JButton("Avançar");
+        btnVoltar.setForeground(new Color(110, 0, 0));
+        btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 37));
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.setContentAreaFilled(false);
+        btnVoltar.setFocusPainted(false);
+        btnVoltar.setPreferredSize(new Dimension(100, 50));
+        btnVoltar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	TelaInicial telaini = new TelaInicial();
+            	setVisible(false);
+				telaini.setVisible(true);
+            }  
+        });
+        //icone da setaVoltar
+        ImageIcon imgIconeVoltar = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\setaVoltar.png");
+        Image imgVoltar = imgIconeVoltar.getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH);
+        JLabel imgSetaVoltar = new JLabel(new ImageIcon(imgVoltar));
+        imgSetaVoltar.setBounds(27, 11, 69, 69);
+        contentPane.add(imgSetaVoltar);
+        //mouse listener de voltar quando clicar na seta
+        imgSetaVoltar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                btnVoltar.doClick();
+            }
+        });
     }
 //FUNÇÕES
     //função de reprodução de audio WAV junto com a parada forçada do audio em reprodução

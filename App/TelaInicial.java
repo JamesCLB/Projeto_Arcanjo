@@ -148,12 +148,10 @@ public class TelaInicial {
 
 		    public void actionPerformed(ActionEvent e) {
 		        if (somMutado) {
-		            System.out.println("COMPARACAO FUNFO ICONE MUTADO");
 		            labelSom.setIcon(iconSomNaoMutadoRedimensionado);
 		            reproduzir.start();
 		            somMutado = false;
 		        } else {
-		            System.out.println("COMPARACAO FUNFO ICONE NAO MUTADO");
 		            labelSom.setIcon(iconSomMutadoRedimensionado);
 		            reproduzir.stop();
 		            somMutado = true;
@@ -161,8 +159,14 @@ public class TelaInicial {
 		    }
 		});
 
-		btnMutar.setBounds(1023, 551, 61, 55);
+		btnMutar.setBounds(1036, 560, 38, 35);
 		btnMutar.setVisible(true);
 		frame.getContentPane().add(btnMutar);
+		
+		
+		ImageIcon wallIcone = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\Design sem nome (7).png");
+		JLabel wallpaper = new JLabel("");
+		wallpaper.setBounds(0, 0, 1084, 606);
+		frame.getContentPane().add(wallpaper);
 	}
 }

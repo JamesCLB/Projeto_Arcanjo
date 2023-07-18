@@ -9,7 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +28,9 @@ import javax.swing.border.EmptyBorder;
 public class TelaComoFun2 extends JFrame {
 
 	private JPanel contentPane;
-
+    private Clip reproduzir;
+    private ImageIcon iconMutado;
+    private ImageIcon iconNaoMutado;
 	/**
 	 * Launch the application.
 	 */
@@ -63,6 +72,60 @@ public class TelaComoFun2 extends JFrame {
         txtrBemvindoAoMaravilhoso.setWrapStyleWord(true);
         contentPane.add(txtrBemvindoAoMaravilhoso);
 
+        //botão burro
+        JButton btnLer = new JButton("Sou burro e não sei ler");
+        btnLer.setForeground(new Color(110, 0, 0));
+        btnLer.setFont(new Font("Microsoft Tai Le", Font.BOLD, 16));
+        btnLer.setBorderPainted(false);
+        btnLer.setContentAreaFilled(false);
+        btnLer.setFocusPainted(false);
+        btnLer.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		reproduzirAudio("C:\\Users\\james\\Desktop\\BlazeSemIronia\\Sons\\4ea7b727-9a62-4866-bd5a-0ac6700a03c1-byVC.wav"); //aciona a função reproduzir audio
+        	}
+        });
+        btnLer.setBounds(823, 24, 204, 33);
+        contentPane.add(btnLer);
+        //icone som
+        
+        iconNaoMutado = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\imgSom.png");
+		iconMutado = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\Mutado.png");
+
+		Image imgSom = iconNaoMutado.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		ImageIcon imgSomRedimensionado = new ImageIcon(imgSom);
+		
+		iconNaoMutado = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\imgSom.png");
+		iconMutado = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\Mutado.png");
+		
+		Image imgSomNaoMutado = iconNaoMutado.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		Image imgSomMutado = iconMutado.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		
+		ImageIcon iconSomNaoMutadoRedimensionado = new ImageIcon(imgSomNaoMutado);
+		ImageIcon iconSomMutadoRedimensionado = new ImageIcon(imgSomMutado);
+		
+		JLabel labelSom = new JLabel(iconSomNaoMutadoRedimensionado);
+		labelSom.setBounds(1024, 24, 30, 33);
+		contentPane.add(labelSom);
+		
+        //mutar Burro
+        
+        labelSom.addMouseListener(new MouseAdapter() {
+            private boolean somMutado = false;
+            public void mouseClicked(MouseEvent e) {
+    		    
+            	if (somMutado) {
+		            labelSom.setIcon(iconSomNaoMutadoRedimensionado);
+		            reproduzir.start();
+		            somMutado = false;
+		        } else {
+		            labelSom.setIcon(iconSomMutadoRedimensionado);
+		            reproduzir.stop();
+		            somMutado = true;
+		        }
+            }
+            
+        });
+        
         JButton btnAvancar = new JButton("Avançar");
         btnAvancar.setForeground(new Color(110, 0, 0));
         btnAvancar.setFont(new Font("Tahoma", Font.BOLD, 37));
@@ -74,7 +137,8 @@ public class TelaComoFun2 extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	TelaDefinaDin telaDin = new TelaDefinaDin();
             	setVisible(false);
-				telaDin.setVisible(true);            }
+				telaDin.setVisible(true);            
+			}
         });
         btnAvancar.setBounds(377, 519, 228, 63);
         contentPane.add(btnAvancar);
@@ -90,6 +154,49 @@ public class TelaComoFun2 extends JFrame {
                 btnAvancar.doClick();
             }
         });
+        JButton btnVoltar = new JButton("Avançar");
+        btnVoltar.setForeground(new Color(110, 0, 0));
+        btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 37));
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.setContentAreaFilled(false);
+        btnVoltar.setFocusPainted(false);
+        btnVoltar.setPreferredSize(new Dimension(100, 50));
+        btnVoltar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	TelaComoFun telaFun2 = new TelaComoFun();
+            	setVisible(false);
+            	telaFun2.setVisible(true);
+            	telaFun2.setLocationRelativeTo(null);
+            }  
+        });
+        //icone da setaVoltar
+        ImageIcon imgIconeVoltar = new ImageIcon("C:\\Users\\james\\Desktop\\BlazeSemIronia\\CaminhosImagens\\setaVoltar.png");
+        Image imgVoltar = imgIconeVoltar.getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH);
+        JLabel imgSetaVoltar = new JLabel(new ImageIcon(imgVoltar));
+        imgSetaVoltar.setBounds(27, 11, 69, 69);
+        contentPane.add(imgSetaVoltar);
+        //mouse listener de voltar quando clicar na seta
+        imgSetaVoltar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                btnVoltar.doClick();
+            }
+        });
 	}
-
+	private void reproduzirAudio(String caminhoArq) {
+		try {
+			File arquivo = new File(caminhoArq);
+			AudioInputStream audioArq = AudioSystem.getAudioInputStream(arquivo);
+			
+			if(reproduzir != null && reproduzir.isRunning()) {
+				reproduzir.stop();
+			}
+			
+			reproduzir = AudioSystem.getClip();
+			reproduzir.open(audioArq);
+			reproduzir.start();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}    
 }

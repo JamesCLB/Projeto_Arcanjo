@@ -1,0 +1,1 @@
+mandar para uma variavel o valor do dinheiro, criar a tela de jogos, 
