@@ -88,8 +88,7 @@ public class TelaDefinaDin extends JFrame {
 		textAreaDin.setBounds(302, 87, 516, 35);
 		textAreaDin.setFont(new Font("Arial Black", Font.BOLD, 21));
 		textAreaDin.setForeground(new Color(100, 0, 0));
-		textAreaDin.setText("Adicione a quantia do seu dinheiro inicial.");
-        Color backgroundColor = contentPane.getBackground();
+		textAreaDin.setText("Adicione a quantia do seu dinheiro inicial.");        Color backgroundColor = contentPane.getBackground();
         textAreaDin.setBackground(backgroundColor);
         textAreaDin.setEditable(false);
         textAreaDin.setLineWrap(true);

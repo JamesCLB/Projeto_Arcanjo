@@ -71,7 +71,7 @@ public class TelaJogo extends JFrame {
 		dinn = din;
 		
 		
-		JButton btnGame2 = new JButton("Azar é os guri");
+		JButton btnGame2 = new JButton("Roletra");
 		btnGame2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblAwdawdwda.setVisible(false);
@@ -80,7 +80,9 @@ public class TelaJogo extends JFrame {
 				lblValor2.setVisible(false);
 				btnComeçar.setVisible(false);
 				btnGirar.setVisible(false);
-				
+				TelaJogo2 telaGame2 = new TelaJogo2(dinn);
+            	setVisible(false);
+            	telaGame2.setVisible(true); 
 				
 			}
 		});
